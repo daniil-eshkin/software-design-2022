@@ -1,3 +1,3 @@
-# Software design ITMO 2022 
+# Refactoring
 
-Лабороторные работы, расположенные в отдельных ветках.
+Source: https://github.com/akirakozov/software-design/tree/master/java/refactoring

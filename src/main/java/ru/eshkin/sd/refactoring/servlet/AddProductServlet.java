@@ -1,7 +1,8 @@
 package ru.eshkin.sd.refactoring.servlet;
 
 import ru.eshkin.sd.refactoring.dao.ProductDao;
-import ru.eshkin.sd.refactoring.model.Product;
+import ru.eshkin.sd.refactoring.servlet.http.HttpServletRequestUtils;
+import ru.eshkin.sd.refactoring.servlet.http.HttpServletResponseBuilder;
 
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -17,13 +18,8 @@ public class AddProductServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        productDao.addProduct(Product.builder()
-                        .name(request.getParameter("name"))
-                        .price(Integer.parseInt(request.getParameter("price")))
-                .build());
+        productDao.addProduct(HttpServletRequestUtils.getProduct(request));
 
-        response.setContentType("text/html");
-        response.setStatus(HttpServletResponse.SC_OK);
-        response.getWriter().println("OK");
+        HttpServletResponseBuilder.buildFromText(response, "OK");
     }
 }

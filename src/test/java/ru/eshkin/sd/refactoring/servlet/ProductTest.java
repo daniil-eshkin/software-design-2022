@@ -1,7 +1,6 @@
 package ru.eshkin.sd.refactoring.servlet;
 
 import org.junit.After;
-import org.junit.BeforeClass;
 import org.junit.Test;
 import ru.eshkin.sd.refactoring.dao.ProductDao;
 
@@ -10,10 +9,6 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.io.StringWriter;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.Collections;
 import java.util.Map;
 
@@ -108,17 +103,6 @@ public class ProductTest {
                 "test2\t2</br>\n" +
                 "test3\t3</br>\n" +
                 "</body></html>\n");
-    }
-
-    private static void executeUpdate(String sql) {
-        try (Connection c = DriverManager.getConnection(CONNECTION_URL)) {
-            Statement stmt = c.createStatement();
-
-            stmt.executeUpdate(sql);
-            stmt.close();
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
     }
 
     private HttpServletRequest getMockRequest(Map<String, String> parameters) {

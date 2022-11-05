@@ -1,6 +1,7 @@
 package ru.eshkin.sd.refactoring.servlet;
 
 import ru.eshkin.sd.refactoring.dao.ProductDao;
+import ru.eshkin.sd.refactoring.servlet.http.HttpServletResponseBuilder;
 
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -19,31 +20,27 @@ public class QueryServlet extends HttpServlet {
         String command = request.getParameter("command");
 
         if ("max".equals(command)) {
-            response.getWriter().println("<html><body>");
-            response.getWriter().println("<h1>Product with max price: </h1>");
-            response.getWriter().println(productDao.getProductWithMaxPrice().toHtml());
-            response.getWriter().println("</body></html>");
+            HttpServletResponseBuilder.htmlBody(response)
+                    .header("Product with max price: ")
+                    .line(productDao.getProductWithMaxPrice().toHtml())
+                    .build();
         } else if ("min".equals(command)) {
-            response.getWriter().println("<html><body>");
-            response.getWriter().println("<h1>Product with min price: </h1>");
-            response.getWriter().println(productDao.getProductWithMinPrice().toHtml());
-            response.getWriter().println("</body></html>");
+            HttpServletResponseBuilder.htmlBody(response)
+                    .header("Product with min price: ")
+                    .line(productDao.getProductWithMinPrice().toHtml())
+                    .build();
         } else if ("sum".equals(command)) {
-            response.getWriter().println("<html><body>");
-            response.getWriter().println("Summary price: ");
-            response.getWriter().println(productDao.getSummaryPrice());
-            response.getWriter().println("</body></html>");
+            HttpServletResponseBuilder.htmlBody(response)
+                    .line("Summary price: ")
+                    .line(productDao.getSummaryPrice())
+                    .build();
         } else if ("count".equals(command)) {
-            response.getWriter().println("<html><body>");
-            response.getWriter().println("Number of products: ");
-            response.getWriter().println(productDao.getProductsCount());
-            response.getWriter().println("</body></html>");
+            HttpServletResponseBuilder.htmlBody(response)
+                    .line("Number of products: ")
+                    .line(productDao.getProductsCount())
+                    .build();
         } else {
-            response.getWriter().println("Unknown command: " + command);
+            HttpServletResponseBuilder.buildFromText(response, "Unknown command: " + command);
         }
-
-        response.setContentType("text/html");
-        response.setStatus(HttpServletResponse.SC_OK);
     }
-
 }

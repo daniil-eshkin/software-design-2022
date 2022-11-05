@@ -2,6 +2,7 @@ package ru.eshkin.sd.refactoring.servlet;
 
 import ru.eshkin.sd.refactoring.dao.ProductDao;
 import ru.eshkin.sd.refactoring.model.Product;
+import ru.eshkin.sd.refactoring.servlet.http.HttpServletResponseBuilder;
 
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -20,13 +21,10 @@ public class GetProductsServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
         List<Product> products = productDao.getAll();
 
-        response.getWriter().println("<html><body>");
+        HttpServletResponseBuilder builder = HttpServletResponseBuilder.htmlBody(response);
         for (Product product : products) {
-            response.getWriter().println(product.toHtml());
+            builder.line(product.toHtml());
         }
-        response.getWriter().println("</body></html>");
-
-        response.setContentType("text/html");
-        response.setStatus(HttpServletResponse.SC_OK);
+        builder.build();
     }
 }

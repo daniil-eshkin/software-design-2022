@@ -3,6 +3,7 @@ package ru.eshkin.sd.refactoring.servlet;
 import org.junit.After;
 import org.junit.BeforeClass;
 import org.junit.Test;
+import ru.eshkin.sd.refactoring.dao.ProductDao;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -23,21 +24,14 @@ import static org.mockito.Mockito.when;
 public class ProductTest {
     private static final String CONNECTION_URL = "jdbc:sqlite:test.db";
 
-    private final GetProductsServlet getProductsServlet = new GetProductsServlet();
-    private final AddProductServlet addProductServlet = new AddProductServlet();
-    private final QueryServlet queryServlet = new QueryServlet();
-
-    @BeforeClass
-    public static void beforeAll() {
-        executeUpdate("CREATE TABLE IF NOT EXISTS PRODUCT" +
-                "(ID INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL," +
-                " NAME           TEXT    NOT NULL, " +
-                " PRICE          INT     NOT NULL)");
-    }
+    private final ProductDao productDao = new ProductDao(CONNECTION_URL);
+    private final GetProductsServlet getProductsServlet = new GetProductsServlet(productDao);
+    private final AddProductServlet addProductServlet = new AddProductServlet(productDao);
+    private final QueryServlet queryServlet = new QueryServlet(productDao);
 
     @After
     public void after() {
-        executeUpdate("DELETE FROM PRODUCT WHERE 1 = 1");
+        productDao.deleteAll();
     }
 
     @Test

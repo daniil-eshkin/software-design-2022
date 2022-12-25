@@ -25,7 +25,7 @@ public class Main {
         switch (args[1]) {
             case "matrix" -> graphFactory = drawingApi -> {
                 try {
-                    return MatrixGraph.readFromSystemIn(
+                    return MatrixGraph.readFromFile(
                             drawingApi,
                             new FileInputStream(args[2])
                     );
@@ -35,7 +35,7 @@ public class Main {
             };
             case "list" -> graphFactory = drawingApi -> {
                 try {
-                    return ListGraph.readFromSystemIn(
+                    return ListGraph.readFromFile(
                             drawingApi,
                             new FileInputStream(args[2])
                     );

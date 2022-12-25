@@ -17,7 +17,7 @@ public class ListGraph extends Graph {
         this.edges = edges;
     }
 
-    public static ListGraph readFromSystemIn(DrawingApi drawingApi, InputStream inputStream) {
+    public static ListGraph readFromFile(DrawingApi drawingApi, InputStream inputStream) {
         Scanner in = new Scanner(inputStream);
         int n = in.nextInt();
         int m = in.nextInt();

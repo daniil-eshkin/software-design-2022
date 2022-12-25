@@ -15,7 +15,7 @@ public class MatrixGraph extends Graph {
         this.edges = edges;
     }
 
-    public static MatrixGraph readFromSystemIn(DrawingApi drawingApi, InputStream inputStream) {
+    public static MatrixGraph readFromFile(DrawingApi drawingApi, InputStream inputStream) {
         Scanner in = new Scanner(inputStream);
         int n = in.nextInt();
         boolean[][] edges = new boolean[n][n];

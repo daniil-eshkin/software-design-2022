@@ -1,3 +1,1 @@
-# Software design ITMO 2022 
-
-Лабороторные работы, расположенные в отдельных ветках.
+### Graph drawer with Bridge pattern
